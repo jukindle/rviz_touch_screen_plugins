@@ -27,51 +27,31 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef rviz2_touch_screen_plugins__VIEW_CONTROLLERS__ORTHO__FIXED_ORIENTATION_ORTHO_VIEW_CONTROLLER_HPP_
-#define rviz2_touch_screen_plugins__VIEW_CONTROLLERS__ORTHO__FIXED_ORIENTATION_ORTHO_VIEW_CONTROLLER_HPP_
+#ifndef rviz_touch_screen_plugins__VIEW_CONTROLLERS__ORTHO__FIXED_ORIENTATION_ORTHO_VIEW_CONTROLLER_HPP_
+#define rviz_touch_screen_plugins__VIEW_CONTROLLERS__ORTHO__FIXED_ORIENTATION_ORTHO_VIEW_CONTROLLER_HPP_
 
-#include <utility>
+#include <rviz/frame_position_tracking_view_controller.h>
 
 #include <OgreQuaternion.h>
 
-#include "rviz_common/frame_position_tracking_view_controller.hpp"
-#include "rviz_default_plugins/visibility_control.hpp"
-
-namespace rviz_rendering
-{
-  class Shape;
-}
-
-namespace rviz_common
-{
-  class ViewportMouseEvent;
-  namespace properties
-  {
-    class FloatProperty;
-  }
-}
-
-namespace Ogre
-{
-  class SceneNode;
-}
-
-namespace rviz2_touch_screen_plugins
+namespace rviz_touch_screen_plugins
 {
   namespace view_controllers
   {
+    class FloatProperty;
+    class SceneNode;
+    class Shape;
 
-    class TouchScreenTopDownOrtho : public rviz_common::FramePositionTrackingViewController
+    class TouchScreenTopDownOrtho : public rviz::FramePositionTrackingViewController
     {
       Q_OBJECT
-
     public:
       TouchScreenTopDownOrtho();
-      ~TouchScreenTopDownOrtho() override = default;
+      ~TouchScreenTopDownOrtho() override;
 
       void onInitialize() override;
 
-      void handleMouseEvent(rviz_common::ViewportMouseEvent &evt) override;
+      void handleMouseEvent(rviz::ViewportMouseEvent &evt) override;
 
       void lookAt(const Ogre::Vector3 &point_rel_world) override;
 
@@ -84,38 +64,32 @@ namespace rviz2_touch_screen_plugins
        * @a source_view must return a valid @c Ogre::Camera* from getCamera(). */
       void mimic(ViewController *source_view) override;
 
-      void move(float x, float y);
-
       void update(float dt, float ros_dt) override;
 
     protected:
-      void onTargetFrameChanged(
-          const Ogre::Vector3 &old_reference_position,
-          const Ogre::Quaternion &old_reference_orientation) override;
+      void onTargetFrameChanged(const Ogre::Vector3 &old_reference_position,
+                                const Ogre::Quaternion &old_reference_orientation) override;
 
       /** Set the camera orientation based on angle_. */
       void orientCamera();
 
       void setPosition(const Ogre::Vector3 &pos_rel_target);
+      void move(float x, float y);
       void updateCamera();
-      Ogre::SceneNode *getCameraParent(Ogre::Camera *camera);
-      void renderOnMove();
 
-      rviz_common::properties::FloatProperty *scale_property_;
-      rviz_common::properties::FloatProperty *angle_property_;
-      rviz_common::properties::FloatProperty *x_property_;
-      rviz_common::properties::FloatProperty *y_property_;
-      rviz_common::properties::BoolProperty *track_ori_property_;
-      rviz_common::properties::FloatProperty *controls_width_property_;
-      rviz_common::properties::BoolProperty *en_move_property_;
-      rviz_common::properties::BoolProperty *en_scale_property_;
-      rviz_common::properties::BoolProperty *en_rot_property_;
-      rviz_common::properties::BoolProperty *en_reset_property_;
-
+      rviz::FloatProperty *scale_property_;
+      rviz::FloatProperty *angle_property_;
+      rviz::FloatProperty *x_property_;
+      rviz::FloatProperty *y_property_;
+      rviz::BoolProperty *track_ori_property_;
+      rviz::FloatProperty *controls_width_property_;
+      rviz::BoolProperty *en_move_property_;
+      rviz::BoolProperty *en_scale_property_;
+      rviz::BoolProperty *en_rot_property_;
+      rviz::BoolProperty *en_reset_property_;
       bool dragging_;
     };
 
-  } // namespace view_controllers
-} // namespace rviz2_touch_screen_plugins
-
-#endif // rviz2_touch_screen_plugins__VIEW_CONTROLLERS__ORTHO__FIXED_ORIENTATION_ORTHO_VIEW_CONTROLLER_HPP_  // NOLINT
+  } // end namespace rviz
+}
+#endif // RVIZ_VIEW_CONTROLLER_H

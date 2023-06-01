@@ -1,20 +1,25 @@
-<?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
-<package format="3">
-  <name>rviz2_touch_screen_plugins</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="julien.kindle@hilti.com">julien</maintainer>
-  <license>TODO: License declaration</license>
+<package>
+  <name>rviz_touch_screen_plugins</name>
+  <version>0.11.0</version>
+  <description>
+     RViz plugins optimized for touch screens.
+  </description>
+  <maintainer email="julien.kindle@gmail.com">Julien Kindle</maintainer>
+  <license>BSD</license>
 
+  <author email="julien.kindle@gmail.com">Julien Kindle</author>
 
-  <depend>rviz_default_plugins</depend>
-  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>catkin</buildtool_depend>
 
-  <test_depend>ament_lint_auto</test_depend>
-  <test_depend>ament_lint_common</test_depend>
+  <build_depend>qtbase5-dev</build_depend>
+  <build_depend>rviz</build_depend>
+
+  <run_depend>libqt5-core</run_depend>
+  <run_depend>libqt5-gui</run_depend>
+  <run_depend>libqt5-widgets</run_depend>
+  <run_depend>rviz</run_depend>
 
   <export>
-    <build_type>ament_cmake</build_type>
+      <rviz plugin="${prefix}/plugin_description.xml"/>
   </export>
 </package>

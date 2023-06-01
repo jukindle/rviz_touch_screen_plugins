@@ -1,0 +1,9 @@
+<library path="lib/librviz_touch_screen_plugins">
+  <class name="rviz_touch_screen_plugins/TouchScreenTopDownOrtho"
+         type="rviz_touch_screen_plugins::view_controllers::TouchScreenTopDownOrtho"
+         base_class_type="rviz::ViewController">
+    <description>
+      Orthographic projection, seen from the top for touch screens.
+    </description>
+  </class>
+</library>
